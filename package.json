@@ -1,6 +1,6 @@
 {
-  "name": "db-practice",
-  "productName": "db-practice",
+  "name": "noted",
+  "productName": "noted",
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": ".vite/build/main.js",

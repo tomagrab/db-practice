@@ -67,14 +67,22 @@
   cursor: pointer;
 }
 
+.delete-note {
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+
 #main {
   flex-grow: 1;
+  padding-inline: 1rem;
 }
 
 #note-form {
   padding: 1rem;
+  width: 100%;
   background-color: $blue;
   border: 3px solid $yellow;
+  border-radius: 0.325rem;
 }
 
 .form-control {
@@ -108,4 +116,9 @@
   background-color: $yellow;
   border: none;
   border-radius: 0.325rem;
+  transition: background-color 0.2s ease-out;
+
+  &:hover {
+    background-color: $yellow-dark;
+  }
 }
