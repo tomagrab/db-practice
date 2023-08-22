@@ -5,10 +5,23 @@ declare const MAIN_WINDOW_VITE_DEV_SERVER_URL: string;
 declare const MAIN_WINDOW_VITE_NAME: string;
 
 // Deciare the API object that we'll expose to the renderer process.
-declare global {
-  interface Window {
-    api: {
-      getAllNotes: () => Promise<Note[]>;
-    };
-  }
+declare interface Window {
+  api: {
+    getAllNotes: () => Promise<Note[]>;
+    getNoteById: (id: number) => Promise<Note>;
+    createNote: (
+      title: string,
+      actions: string,
+      content: string,
+      summary: string
+    ) => Promise<Note>;
+    updateNote: (
+      id: number,
+      title: string,
+      actions: string,
+      content: string,
+      summary: string
+    ) => Promise<Note>;
+    deleteNote: (id: number) => Promise<Note>;
+  };
 }

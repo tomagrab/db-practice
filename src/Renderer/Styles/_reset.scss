@@ -1,0 +1,37 @@
+// SCSS Reset file
+
+html,
+body,
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}
+
+textarea,
+input {
+  border: none;
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+}

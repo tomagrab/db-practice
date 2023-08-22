@@ -3,11 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <title>Hello World!</title>
-
   </head>
   <body>
-    <h1>💖 Hello World!</h1>
-    <p>Welcome to your Electron application.</p>
+    <div class="app" id="app">
+      <aside class="sidebar" id="sidebar">
+        <ul class="note-list" id="note-list"></ul>
+      </aside>
+      <main class="main" id="main">
+        <form class="note-form" id="note-form">
+          <div class="form-control">
+            <input type="hidden" name="note-id" />
+          </div>
+          <div class="form-control">
+            <label for="note-title">title</label>
+            <input type="text" name="note-title" id="note-title" />
+          </div>
+          <div class="form-control">
+            <label for="note-actions">actions</label
+            ><textarea name="note-actions" id="note-actions"></textarea>
+          </div>
+          <div class="form-control">
+            <label for="note-content">content</label
+            ><textarea name="note-content" id="note-content"></textarea>
+          </div>
+          <div class="form-control">
+            <label for="note-summary">summary</label
+            ><textarea name="note-summary" id="note-summary"></textarea>
+          </div>
+          <button type="submit">notate</button>
+        </form>
+      </main>
+    </div>
     <script type="module" src="/src/renderer.ts"></script>
   </body>
 </html>
