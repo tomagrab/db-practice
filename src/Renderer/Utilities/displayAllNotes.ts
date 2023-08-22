@@ -1,39 +1,14 @@
-import { deleteNote, getAllNotes } from "../API/api";
+import { getAllNotes } from "../API/api";
+import { createNoteListItem, attachNoteEvents } from "./createNoteListItem";
 
 export default async function displayAllNotes() {
   const notes = await getAllNotes();
-  const noteList = document.getElementById("note-list");
+  const noteList = document.getElementById("note-list") as HTMLUListElement;
 
   if (noteList) {
     notes.forEach((note) => {
-      const listItem = document.createElement("li");
-
-      const noteID = document.createElement("input");
-      noteID.setAttribute("type", "hidden");
-      noteID.setAttribute("value", `${note.id}`);
-
-      const noteElement = document.createElement("a");
-      noteElement.classList.add("note");
-      noteElement.innerHTML = `${note.title}`;
-
-      const deleteBTN = document.createElement("button");
-      deleteBTN.classList.add("delete-note");
-      deleteBTN.innerHTML = "❌";
-
-      listItem.appendChild(noteID);
-      listItem.appendChild(noteElement);
-      listItem.appendChild(deleteBTN);
-      noteList.appendChild(listItem);
-
-      deleteBTN.addEventListener("click", () => {
-        deleteNote(note.id)
-          .then(() => {
-            noteList.removeChild(listItem);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      });
+      const listItem = createNoteListItem(note, noteList);
+      attachNoteEvents(listItem, note, noteList);
     });
   }
 }

@@ -1,71 +1,84 @@
-import { createNote, deleteNote } from "../API/api";
+import { createNote, updateNote } from "../API/api";
+import { createNoteListItem, attachNoteEvents } from "./createNoteListItem";
+import updateNotes from "./updateNote";
 
-export default async function createNoteFromForm() {
+export default function createNoteFromForm() {
   const form = document.getElementById("note-form");
-  const noteList = document.getElementById("note-list");
+  const noteList = document.getElementById("note-list") as HTMLUListElement;
 
   if (form) {
-    form.addEventListener("submit", (event) => {
+    form.addEventListener("submit", async (event) => {
       event.preventDefault();
 
-      const id = document.getElementById("note-id") as HTMLInputElement;
-      const title = document.getElementById("note-title") as HTMLInputElement;
-      const actions = document.getElementById(
-        "note-actions"
-      ) as HTMLInputElement;
-      const content = document.getElementById(
-        "note-content"
-      ) as HTMLInputElement;
-      const summary = document.getElementById(
-        "note-summary"
-      ) as HTMLInputElement;
+      const id = (document.getElementById("note-id") as HTMLInputElement).value;
+      let title = (document.getElementById("note-title") as HTMLInputElement)
+        .value;
+      let actions = (
+        document.getElementById("note-actions") as HTMLInputElement
+      ).value;
+      let content = (
+        document.getElementById("note-content") as HTMLInputElement
+      ).value;
+      let summary = (
+        document.getElementById("note-summary") as HTMLInputElement
+      ).value;
 
-      const note = {
-        title: title.value,
-        actions: actions.value,
-        content: content.value,
-        summary: summary.value,
-      };
+      if (title === "") {
+        title = "Untitled";
+      }
 
-      createNote(note.title, note.actions, note.content, note.summary)
-        .then((note) => {
-          title.value = "";
-          actions.value = "";
-          content.value = "";
-          summary.value = "";
+      if (actions === "") {
+        actions = "No actions";
+      }
 
-          const listItem = document.createElement("li");
+      if (content === "") {
+        content = "No content";
+      }
 
-          const noteID = document.createElement("input");
-          noteID.setAttribute("type", "hidden");
-          noteID.setAttribute("value", `${note.id}`);
+      if (summary === "") {
+        summary = "No summary";
+      }
 
-          const noteElement = document.createElement("a");
-          noteElement.classList.add("note");
-          noteElement.innerHTML = `${note.title}`;
-
-          const deleteBTN = document.createElement("button");
-          deleteBTN.classList.add("delete-note");
-          deleteBTN.innerHTML = "❌";
-
-          listItem.appendChild(noteID);
-          listItem.appendChild(noteElement);
-          listItem.appendChild(deleteBTN);
-          noteList.appendChild(listItem);
-
-          deleteBTN.addEventListener("click", () => {
-            deleteNote(note.id)
-              .then(() => {
-                noteList.removeChild(listItem);
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      try {
+        let note;
+        if (!id || id === "0" || id === "" || !document.getElementById(id)) {
+          note = await createNote(title, actions, content, summary);
+          const listItem = createNoteListItem(note, noteList);
+          attachNoteEvents(listItem, note, noteList);
+        } else if (document.getElementById(id)) {
+          note = await updateNote(
+            parseInt(id),
+            title,
+            actions,
+            content,
+            summary
+          );
+          updateNotes(id, note.title);
+        }
+        resetFormFields();
+      } catch (error) {
+        console.log(error);
+      }
     });
   }
+}
+
+function resetFormFields() {
+  const idField = document.getElementById("note-id") as HTMLInputElement;
+  const titleField = document.getElementById("note-title") as HTMLInputElement;
+  const actionsField = document.getElementById(
+    "note-actions"
+  ) as HTMLInputElement;
+  const contentField = document.getElementById(
+    "note-content"
+  ) as HTMLInputElement;
+  const summaryField = document.getElementById(
+    "note-summary"
+  ) as HTMLInputElement;
+
+  idField.value = "";
+  titleField.value = "";
+  actionsField.value = "";
+  contentField.value = "";
+  summaryField.value = "";
 }

@@ -7,12 +7,14 @@
   <body>
     <div class="app" id="app">
       <aside class="sidebar" id="sidebar">
+        <h2 id="sidebar-title" class="sidebar-title">notes</h2>
         <ul class="note-list" id="note-list"></ul>
       </aside>
       <main class="main" id="main">
+        <h2 id="main-title" class="main-title">notate</h2>
         <form class="note-form" id="note-form">
           <div class="form-control">
-            <input type="hidden" name="note-id" />
+            <input type="hidden" name="note-id" id="note-id" />
           </div>
           <div class="form-control">
             <label for="note-title">title</label>
@@ -30,7 +32,7 @@
             <label for="note-summary">summary</label
             ><textarea name="note-summary" id="note-summary"></textarea>
           </div>
-          <button type="submit">notate</button>
+          <button id="form-btn" type="submit">notate</button>
         </form>
       </main>
     </div>
