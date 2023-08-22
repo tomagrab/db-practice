@@ -1,5 +1,6 @@
 import createNoteFromForm from "./Renderer/Utilities/createNote";
 import displayAllNotes from "./Renderer/Utilities/displayAllNotes";
+import maintainSameHeight from "./Renderer/Utilities/maintainSameHeight";
 import "./index.scss";
 
 console.log(
@@ -9,4 +10,5 @@ console.log(
 document.addEventListener("DOMContentLoaded", () => {
   displayAllNotes();
   createNoteFromForm();
+  maintainSameHeight();
 });

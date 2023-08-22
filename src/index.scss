@@ -93,11 +93,12 @@
     color: $dark;
     font-size: 1.5rem;
     font-weight: 700;
-    margin-block: 1rem;
+    margin-bottom: 0.5rem;
   }
 
   & > textarea,
   & > input {
+    margin-bottom: 0.5rem;
     padding: 0.5rem;
     font-size: 1.25rem;
     border: none;
@@ -108,17 +109,23 @@
 
     &:focus {
       background-color: white;
+      outline: 3px solid $yellow;
     }
   }
 }
 
 #notes-and-actions {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  column-gap: 1rem;
+
+  & > *:nth-child(even) {
+    grid-column: span 2;
+  }
 }
 
 #form-btn {
-  margin-top: 1rem;
   padding: 0.5rem 1rem;
   background-color: $yellow;
   border: none;
